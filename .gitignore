@@ -1,0 +1,8 @@
+node_modules/
+util/mysql
+
+views/crypto.ejs
+routes/crypto.js
+public/assets/js/pages/crypto-client.js
+
+.vscode

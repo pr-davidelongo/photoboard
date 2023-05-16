@@ -1,0 +1,103 @@
+@media(min-width:992px){
+    .main-panel{
+        width: calc(100% - 203px);
+    }
+    .sidebar, .sidebar .sidebar-wrapper{
+        width: 203px;
+    }
+    .sidebar .logo a.logo-mini{
+        margin-left: 5px;
+    }
+}
+
+#card-login{
+    padding: 15px;
+    max-width: 35%;
+    margin:auto;
+}
+
+@media (max-width: 1439px) {
+    #card-login{
+        max-width: 70%;
+    }
+}
+
+#card-login form label i{
+    margin-right: 5px;
+}
+
+#card-login form label,#card-login form input {
+    font-size: 21px;
+    margin-bottom: 0;
+}
+#card-login form label[for="password"],
+#card-login form input[type="submit"] {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+#card-login form input[type="password"], 
+#card-login form input[type="text"],
+#card-login form input[type="submit"] {
+    font-size: 16px;
+}
+
+.card-title input, .card-title select{
+    width: 100%;
+    text-align: right;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+
+.navbar-nav{cursor: pointer;}
+
+.table-responsive, .sidebar .sidebar-wrapper{
+    overflow:hidden;
+}
+#wallet-cryptoTbl tbody tr:hover{
+    background-color:#51bcda30;
+    cursor: pointer;
+}
+.iconCoin{max-width: 23px;}
+li.active a p{font-weight: bold;}
+
+.bt-update, .bt-add, .bt-del{
+    display:inline-block;
+    cursor: pointer;
+}
+.bt-update:hover{
+    color:#51bcda !important;
+    font-weight: bold;
+}
+.bt-add:hover{
+    color:#6bd098 !important;
+    font-weight: bold;
+}
+.bt-del:hover{
+    color:#ef8157 !important;
+    font-weight: bold;
+}
+
+.cat-coin{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.copyright a{
+    color:#252525;
+}
+
+.row-plus{
+    background-color:#6bd09830 !important;
+    line-height: 0.5;
+}
+.row-minus{
+    background-color:#ef815730 !important;
+    line-height: 0.5;
+}
+
+#transactions-cryptoTbl{
+    max-height: 250px;
+}
+#transactions-cryptoTbl tbody{
+    overflow:auto;
+}
