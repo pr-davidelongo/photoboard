@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
-const session = require('express-session')
+const session = require('express-session');
+const fileUpload = require('express-fileupload');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -32,6 +33,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload({createParentPath: true, useTempFiles : true, tempFileDir : './uploads/tmp/'}));// Abilitazione upload file. (specificare il nome della cartella temporanea da usare)
+
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);

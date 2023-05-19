@@ -1,7 +1,8 @@
 # photoboard NOTE
 
-Tipi di Utente:
-0 - Client
-1 - Photographer
-2 - *****
+Livello Utente:
+0 - Guest
+1 - Client
+2 - Photographer
 3 - Administrator
+5 - ****

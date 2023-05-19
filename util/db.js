@@ -9,7 +9,7 @@ const configDB = {
     "db": "davidelo_photoboard"
 }
 const dbTables=[
-    {table:"users", fields:"(`id`, `sid`, `usr`, `psw`, `email`)"},
+    {table:"users", fields:"(`id`, `sid`, `usr`, `psw`, `email`, `phone`)"},
     {table:"albums", fields:"(`id`, `usr_id`, `date`, `version`, `page`, `img`, `msg`, `mod`)"}
 ]
 

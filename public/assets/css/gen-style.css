@@ -1,3 +1,8 @@
+#card-login{
+    padding: 15px;
+    max-width: 35%;
+    margin:auto;
+}
 @media(min-width:992px){
     .main-panel{
         width: calc(100% - 203px);
@@ -9,13 +14,6 @@
         margin-left: 5px;
     }
 }
-
-#card-login{
-    padding: 15px;
-    max-width: 35%;
-    margin:auto;
-}
-
 @media (max-width: 1439px) {
     #card-login{
         max-width: 70%;
@@ -49,17 +47,6 @@
     margin-bottom: 10px;
 }
 
-.navbar-nav{cursor: pointer;}
-
-.table-responsive, .sidebar .sidebar-wrapper{
-    overflow:hidden;
-}
-#wallet-cryptoTbl tbody tr:hover{
-    background-color:#51bcda30;
-    cursor: pointer;
-}
-.iconCoin{max-width: 23px;}
-li.active a p{font-weight: bold;}
 
 .bt-update, .bt-add, .bt-del{
     display:inline-block;
@@ -78,26 +65,29 @@ li.active a p{font-weight: bold;}
     font-weight: bold;
 }
 
-.cat-coin{
-    text-transform: uppercase;
-    font-weight: bold;
+.btn-act{
+    width: 100%;
+    color:#ffff !important;
 }
+
+.navbar-nav{cursor: pointer;}
+li.active a p{font-weight: bold;}
+.table-responsive, .sidebar .sidebar-wrapper{
+    overflow:hidden;
+}
+.table-responsive{overflow-y: scroll; max-height:30em;}
+#tbl-clients tbody{overflow:auto;}
+#tbl-clients thead th{width: 22%}
+.th-xsmall{max-width: 5%; font-size:9px !important}
+.th-small{max-width: 10%}
+.th-medium{max-width: 15%}
+.th-large{max-width: 40%}
+.td-act {padding: 9px 7px 2px 7px !important}
+.td-act a{font-size:x-large; color:#212529}
+.td-act a:hover{color: #51bcda}
+
+
+
 .copyright a{
     color:#252525;
-}
-
-.row-plus{
-    background-color:#6bd09830 !important;
-    line-height: 0.5;
-}
-.row-minus{
-    background-color:#ef815730 !important;
-    line-height: 0.5;
-}
-
-#transactions-cryptoTbl{
-    max-height: 250px;
-}
-#transactions-cryptoTbl tbody{
-    overflow:auto;
 }

@@ -61,19 +61,18 @@ Coded by www.xxxxxx.com
               </a>
             </li>
           <% } %>
-          <li>
-            <a href="/album">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>Album</p>
-            </a>
-          </li>
           <li class="active">
             <a href="/gallery">
               <i class="nc-icon nc-album-2"></i>
               <p>Gallery</p>
             </a>
           </li>
-          
+          <li>
+            <a href="/album">
+              <i class="nc-icon nc-book-bookmark"></i>
+              <p>Album</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -235,21 +234,29 @@ Coded by www.xxxxxx.com
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Users Behavior</h5>
-                <p class="card-category">24 Hours performance</p>
-              </div>
-              <div class="card-body ">
-                <canvas id=chartHours width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Updated 3 minutes ago
-                </div>
+            
+            
+            <div class="card" id="form-info-client">
+              <div class="card-body"><p class="card-category">New client info</p>
+
+                <form action="gallery/upload" enctype="multipart/form-data" method="POST">
+                  <div class="row">
+                    <div class="col-sm-6"><label for="file">Contract</label><input type="file" id="contract" name="contract" placeholder="contract.pdf" class="form-control" required/></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12"><input type="submit" class="btn btn-primary btn-act" value="ADD CLIENT"/></div>
+                  </div>
+                </form>
               </div>
             </div>
+
+
+
+
+
+
+
+
           </div>
         </div>
         <div class="row">

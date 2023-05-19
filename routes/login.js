@@ -21,7 +21,7 @@ router.post('/auth', function(request, response, next){
           if(data[count].psw == _psw){
             request.session.usr = data[count].usr;
             request.session.usr_id = data[count].id;
-            request.session.usr_level = data[count].level;
+            request.session.usr_level = data[count].lvl;
             response.redirect("/dashboard");
           }else{
             // response.send('Incorrect Password');
@@ -32,7 +32,7 @@ router.post('/auth', function(request, response, next){
       }else{
         // response.send('Incorrect Email Address')
         request.session.wUsr = true;
-        response.redirect("../");;
+        response.redirect("../");
       }
       response.end();
     });

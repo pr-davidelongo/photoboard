@@ -62,18 +62,17 @@ Coded by www.xxxxxx.com
             </li>
           <% } %>
           <li>
-            <a href="/album">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>Album</p>
-            </a>
-          </li>
-          <li>
             <a href="/gallery">
               <i class="nc-icon nc-album-2"></i>
               <p>Gallery</p>
             </a>
           </li>
-          
+          <li>
+            <a href="/album">
+              <i class="nc-icon nc-book-bookmark"></i>
+              <p>Album</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -127,107 +126,101 @@ Coded by www.xxxxxx.com
       </nav>
       <!-- End Navbar -->
       <div class="content">
+        <div class="row" id="act-clients">
+          <div class="col-md-4">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-5 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <i class="nc-icon nc-circle-10 text-success"></i>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <p class="card-category">Qty. Clients</p>
+                      <p class="card-title" id="numClient"><p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body ">
+                <h5 class="card-title text-center">New Client</h5>
+                <a class="btn btn-primary btn-act" id="btn-new-client" disabled>NEW</a>
+                <a class="btn btn-primary btn-act" id="btn-del-client">REMOVE</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+
+            <!-- START Form Client -->
+            <div class="card" id="form-info-client">
+              <div class="card-body"><p class="card-category">New client info</p>
+                <form action="clients/new" enctype="multipart/form-data" method="POST">
+                  <div class="row">
+                    <div class="col-sm-6" hidden><input type="number" name="ph_id" class="form-control" value="<%= session.usr_id %>"/></div>
+                    <div class="col-sm-6"><label for="text">Name</label><input type="text" name="name" placeholder="name" class="form-control" required/></div>
+                    <div class="col-sm-6"><label for="text">Surname</label><input type="text" name="surname" placeholder="surname" class="form-control" required/></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6"><label for="email">e-Mail</label><input type="email" name="email" placeholder="email" class="form-control" required/></div>
+                    <div class="col-sm-6"><label for="tel">Phone</label><input type="tel" name="tel" placeholder="phone" class="form-control" required/></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6"><label for="text">Client Psw</label><input type="text" name="client_psw" placeholder="client password" class="form-control" required/></div>
+                    <div class="col-sm-6"><label for="date">Event Date</label><input type="date" name="event_date" placeholder="event date" class="form-control" required/></div>
+                    </div>
+                  <div class="row">
+                    <div class="col-sm-12"><label for="file">Contract</label><input type="file" id="contract" name="contract" placeholder="contract.pdf" class="form-control"/></div>
+                    <div class="col-sm-12"><input type="submit" class="btn btn-primary btn-act" value="ADD CLIENT"/></div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- END Form Client -->
+          </div>
+        </div>
         <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
                 <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-globe text-warning"></i>
+                  <div class="col-md-8"><h5 class="card-title">Clients List</h5><p class="card-category"></p></div>
+                  <div class="col-md-4">
+                    <div class="input-group no-border">
+                      <input class="form-control" id="tbl-search" onkeyup="javascript:search_tblClient()" type="text" value="" placeholder="Search...">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <i class="nc-icon nc-zoom-split"></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Capacity</p>
-                      <p class="card-title">150GB<p>
-                    </div>
-                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped text-center" id="tbl-clients">
+                    <thead class="text-primary">
+                      <th class="th-medium">Name</th>
+                      <th class="th-medium">Surname</th>
+                      <th class="th-large">e-Mail</th>
+                      <th class="th-medium">Phone</th>
+                      <th class="th-xsmall">Contract</th>
+                      <th class="th-xsmall">Gallery</th>
+                      <th class="th-xsmall">Album</th>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
                 </div>
               </div>
               <div class="card-footer ">
-                <hr>
+                <!-- <hr> -->
                 <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-money-coins text-success"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Revenue</p>
-                      <p class="card-title">$ 1,345<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar-o"></i>
-                  Last day
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-vector text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Errors</p>
-                      <p class="card-title">23<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i>
-                  In the last hour
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-favourite-28 text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Followers</p>
-                      <p class="card-title">+45K<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update now
+                  <!-- <i class="fa fa-history"></i> Updated 3 minutes ago -->
                 </div>
               </div>
             </div>
@@ -235,67 +228,45 @@ Coded by www.xxxxxx.com
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Users Behavior</h5>
-                <p class="card-category">24 Hours performance</p>
-              </div>
-              <div class="card-body ">
-                <canvas id=chartHours width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Updated 3 minutes ago
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Email Statistics</h5>
-                <p class="card-category">Last Campaign Performance</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartEmail"></canvas>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-primary"></i> Opened
-                  <i class="fa fa-circle text-warning"></i> Read
-                  <i class="fa fa-circle text-danger"></i> Deleted
-                  <i class="fa fa-circle text-gray"></i> Unopened
-                </div>
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-calendar"></i> Number of emails sent
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="card card-chart">
+            <!-- <div class="card">
               <div class="card-header">
-                <h5 class="card-title">NASDAQ: AAPL</h5>
-                <p class="card-category">Line Chart with Points</p>
+                <div class="row">
+                  <div class="col-md-8"><h5 class="card-title">Clients List</h5><p class="card-category"></p></div>
+                  <div class="col-md-4">
+                    <div class="input-group no-border">
+                      <input class="form-control" id="tbl-search" onkeyup="javascript:search_tblClient()" type="text" value="" placeholder="Search...">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <i class="nc-icon nc-zoom-split"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="card-body">
-                <canvas id="speedChart" width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer">
-                <div class="chart-legend">
-                  <i class="fa fa-circle text-info"></i> Tesla Model S
-                  <i class="fa fa-circle text-warning"></i> BMW 5 Series
+                <div class="table-responsive">
+                  <table class="table table-striped text-center" id="tbl-clients">
+                    <thead class="text-primary">
+                      <th class="th-medium">Name</th>
+                      <th class="th-medium">Surname</th>
+                      <th class="th-large">e-Mail</th>
+                      <th class="th-medium">Phone</th>
+                      <th class="th-xsmall">Contract</th>
+                      <th class="th-xsmall">Album</th>
+                      <th class="th-xsmall">Gallery</th>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
                 </div>
-                <hr />
-                <div class="card-stats">
-                  <i class="fa fa-check"></i> Data information certified
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                <i class="fa fa-history"></i> Updated 3 minutes ago
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -331,9 +302,19 @@ Coded by www.xxxxxx.com
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <!-- <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>Paper Dashboard DEMO methods, don't include it in your project! -->
+  
+  
+  <!-- Pages JS File -->
+  <script src="../assets/js/pages/cs-general.js"></script>
+  <script>set_user('<%= session.usr_id %>' , '<%= session.usr %>')</script>
+
+  <script src="../assets/js/pages/cs-clients.js"></script>
+  
   <script>
     $(document).ready(function() {
-
+      let msg = '<%= session.msg %>';
+      console.log(msg);
+      if( msg != '' ){  alert(msg) }
     });
   </script>
 </body>

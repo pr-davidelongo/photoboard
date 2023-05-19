@@ -1,5 +1,6 @@
 node_modules/
 util/mysql
+uploads
 
 views/crypto.ejs
 routes/crypto.js
