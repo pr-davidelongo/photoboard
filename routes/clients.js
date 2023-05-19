@@ -106,7 +106,7 @@ router.post('/new', function(req, res, next){
   db.query(query, function(err, data){
     if (err) throw err;
     msg = "Nuovo cliente aggiunto!";
-  });
+  }); 
 
   query = "INSERT INTO clients (`id`, `c_date`, `usr_id`, `ph_id`,`name`, `surname`, `email`, `phone`, `contract`, `album_id`, `gallery_id`) VALUES (NULL , '2023-02-09', -1, 1, 'pppppp', 'pppppp', 'pppppp', '33333', 'pppp.pdf', -1, -1);"
   console.log(query);

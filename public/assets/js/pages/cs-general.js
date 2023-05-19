@@ -71,5 +71,5 @@ function select_row(tbl, trID){
 }
 /* Funzioni matematiche*/
 function reduce_decimal(x,d) {
-  return Number.parseFloat(x).toFixed(d);
+  return Number.parseFloat(x).toFixed(d); 
 }
