@@ -35,9 +35,9 @@ router.get('/tbl', function(req, res, next) {
     if(data.length > 0){
       for (let r = 0; r < data.length; r++) {
         returnStr = returnStr+`<tr><td>${data[r].name}</td><td>${data[r].surname}</td><td>${data[r].email}</td><td>${data[r].phone}</td>
-        <td class="td-act"><a href="#get_contract(${data[r].contract})"><i class="nc-icon nc-paper"></i></a></td>
-        <td class="td-act"><a href="#get_contract(${data[r].gallery_id})"><i class="nc-icon nc-album-2"></i></a></td>
-        <td class="td-act"><a href="#get_contract(${data[r].album_id})"><i class="nc-icon nc-book-bookmark"></i></a></td></tr>`;
+        <td class="td-act"><a href="#get_contract('${data[r].contract}')"><i class="nc-icon nc-paper"></i></a></td>
+        <td class="td-act"><a href="#get_gallery('${data[r].gallery_id}')"><i class="nc-icon nc-album-2"></i></a></td>
+        <td class="td-act"><a href="#get_album('${data[r].album_id}')"><i class="nc-icon nc-book-bookmark"></i></a></td></tr>`;
       }
       res.status(200).send(returnStr);
     }else{
@@ -60,8 +60,9 @@ router.post('/new', function(req, res, next){
  
   let msg = '', filePath = '', fileName = '';
   let year = new Date().getFullYear();
+  let addActivityOnDB = true;
 
-  if(!req.files) {	
+  if(!req.files) {	// controllo se è stato caricato il file contratto
     console.log("file non caricato")
   }
   else {
@@ -71,64 +72,56 @@ router.post('/new', function(req, res, next){
     filePath = `uploads/contracts/${_ph}/${year}/`;
     fileName =`${_date}_${_ph}-${_name}${_surname}-contract.${mimeType}`;
 
-
-    if (mimeType == "png" || "jpg" || "jpeg" || "pdf") {
-      fs.mkdir(filePath, (err) => {
+    // controllo che il file caricato sia tra quelli riconosciuti
+    if (mimeType == "png" || mimeType == "jpg" || mimeType == "jpeg" || mimeType == "pdf") {
+      fs.mkdir(filePath, (err) => { // controllo se esiste già la cartella dell'anno corrente, se no la creo
         if (err) {
           return console.error(err);
         }
       });
+      // copio e rinomino il file temporaneo nella cartella contracts
       fs.copyFile(tempFilePath, filePath+fileName.toLowerCase(), 0, (err) => {
         if ( err ) throw err;
         console.log('Copia eseguita con succcesso');
       });
+      // elimino il file temporaneo
       fs.unlink(tempFilePath, function(err) {
         if (err) throw err;
         console.log('File tmp rimosso con successo');
       });
-
     } else {
+
+      addActivityOnDB = false;
+      // elimino il file temporaneo
+      fs.unlink(tempFilePath, function(err) {
+        if (err) throw err;
+        console.log('File tmp rimosso con successo');
+      });
       msg = "Estensione FILE non supportata ! Puoi caricare solo: PNG, JPG, PDF.";
       res.redirect(`/clients?msg=${msg}`);
     }
   }
+  if(addActivityOnDB){
+    // QUERY SQL aggiunta Utente
+    let query = "INSERT IGNORE INTO users (`id`, `sid`, `lvl`, `usr`, `psw`)"+`VALUES (NULL, '', 1, '${_email}', '${_psw}');` 
+    db.query(query, function(err, data){
+      if (err) throw err;
+    }); 
+    // QUERY SQL aggiunta cliente(attività)
+    query = "INSERT INTO clients (`id`, `c_date`, `usr_id`, `ph_id`,`name`, `surname`, `email`, `phone`, `contract`, `album_id`, `gallery_id`)"+
+    `VALUES (NULL, '${_date}', -1, ${_ph}, '${_name}', '${_surname}', '${_email}', '${_tel}', '${fileName}', -1, -1);`
+    db.query(query, function(err, data){
+      if (err) throw err;
+    });
+    // QUERY SQL associazione Utente a Cliente(attività)
+    query = `UPDATE clients SET usr_id = ( SELECT id FROM users WHERE users.usr = '${_email}' ) WHERE clients.email = '${_email}';`
+    db.query(query, function(err, data){
+      if (err) throw err;
+    });
 
-
-  let query = "INSERT INTO users (`id`, `sid`, `lvl`, `usr`, `psw`) VALUES (NULL, '', 1, 'pppppp', 'pppppp');"
-
-  
-  // 'INSERT INTO users (`id`, `sid`, `lvl`, `usr`, `psw`) VALUES '+`(NULL, '', 1, '${_email}', '${_psw}');
-  // INSERT INTO clients `+'(`id`, `c_date`, `usr_id`, `ph_id`,`name`, `surname`, `email`, `phone`, `contract`, `album_id`, `gallery_id`) VALUES '+
-  // `(NULL , '${_date}', -1, ${_ph}, '${_name}', '${_surname}', '${_email}', '${_tel}', '${fileName}', -1, -1);
-  // UPDATE clients SET usr_id = ( SELECT id FROM users WHERE users.usr = '${_email}' ) WHERE clients.email = '${_email}'`
-
-  console.log(query);
-  db.query(query, function(err, data){
-    if (err) throw err;
-    msg = "Nuovo cliente aggiunto!";
-  }); 
-
-  query = "INSERT INTO clients (`id`, `c_date`, `usr_id`, `ph_id`,`name`, `surname`, `email`, `phone`, `contract`, `album_id`, `gallery_id`) VALUES (NULL , '2023-02-09', -1, 1, 'pppppp', 'pppppp', 'pppppp', '33333', 'pppp.pdf', -1, -1);"
-  console.log(query);
-  db.query(query, function(err, data){
-    if (err) throw err;
-    msg = "Nuovo cliente aggiunto!";
-  });
-
-  query = "UPDATE clients SET usr_id = ( SELECT id FROM users WHERE users.usr = 'pppppp' ) WHERE clients.email = 'pppppp';"
-  console.log(query);
-  db.query(query, function(err, data){
-    if (err) throw err;
-    msg = "Nuovo cliente aggiunto!";
-  });
-  
-   
-  
- 
-
-
-
-  res.redirect(`/clients?msg=${msg}`);
+    msg = "Nuova attività aggiunta!";
+    res.redirect(`/clients?msg=${msg}`);
+  }
   res.end();
 });
 
