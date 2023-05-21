@@ -1,24 +1,30 @@
-const html_formNewClient = `
-<div class="card-body"><p class="card-category">New client info</p>
-  <form action="/clients/new">
-    <div class="row">
-      <div class="col-sm-6"><label for="text">Name</label><input type="text" name="name" placeholder="name" class="form-control" required/></div>
-      <div class="col-sm-6"><label for="text">Surname</label><input type="text" name="surname" placeholder="surname" class="form-control" required/></div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6"><label for="email">e-Mail</label><input type="email" name="email" placeholder="email" class="form-control" required/></div>
-      <div class="col-sm-6"><label for="tel">Phone</label><input type="tel" name="tel" placeholder="phone" class="form-control" required/></div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6"><label for="text">Client Psw</label><input type="text" name="client_psw" placeholder="client password" class="form-control" required/></div>
-      <div class="col-sm-6"><label for="file">Contract</label><input type="file" name="contract" placeholder="contract.pdf" class="form-control" required/></div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12"><input type="submit" class="btn btn-primary btn-act" value="ADD CLIENT" /></div>
-    </div>
-  </form>
+
+
+const html_formNewActivity = `
+<div class="card" id="form-info-client">
+  <div class="card-body"><p class="card-category">Activity Info</p>
+    <form action="clients/new" enctype="multipart/form-data" method="POST">
+      <div class="row">
+        <div class="col-sm-6" hidden><input type="number" name="ph_id" class="form-control" value="<%= session.usr_id %>"/></div>
+        <div class="col-sm-6"><label for="text">Name</label><input type="text" name="name" placeholder="name" class="form-control" required/></div>
+        <div class="col-sm-6"><label for="text">Surname</label><input type="text" name="surname" placeholder="surname" class="form-control" required/></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6"><label for="email">e-Mail</label><input type="email" name="email" placeholder="email" class="form-control" required/></div>
+        <div class="col-sm-6"><label for="tel">Phone</label><input type="tel" name="tel" placeholder="phone" class="form-control" required/></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6"><label for="text">Client Psw</label><input type="text" name="client_psw" placeholder="client password" class="form-control" required/></div>
+        <div class="col-sm-6"><label for="date">Event Date</label><input type="date" name="event_date" placeholder="event date" class="form-control" required/></div>
+        </div>
+      <div class="row">
+        <div class="col-sm-12"><label for="file">Contract</label><input type="file" id="contract" name="contract" placeholder="contract.pdf" class="form-control"/></div>
+        <div class="col-sm-12"><input type="submit" class="btn btn-primary btn-act" value="ADD ACTIVITY"/></div>
+      </div>
+    </form>
+  </div>
 </div>`
-const html_formRemoveClient = `
+const html_formRemoveActivity = `
 <div class="card-body"><p class="card-category">Remove client</p>
   <form action="#">
     <div class="row">
@@ -107,13 +113,13 @@ $(document).ready(function() {
     console.log("pippo click")
     $('#btn-new-client').attr("disabled", "disabled");
     $('#btn-del-client').removeAttr('disabled');
-    $('#form-info-client').html(html_formNewClient);
+    $('#form-info-client').html(html_formNewActivity);
   })
   $('#btn-del-client').click(()=>{
     console.log("pippo click")
     $('#btn-del-client').attr("disabled", "disabled");
     $('#btn-new-client').removeAttr('disabled');
-    $('#form-info-client').html(html_formRemoveClient);
+    $('#form-info-client').html(html_formRemoveActivity);
   })
 
 });
