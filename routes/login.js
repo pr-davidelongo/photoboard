@@ -28,7 +28,7 @@ router.post('/auth', function(request, response, next){
             request.session.wPsw = true;
             response.redirect("../");
           }
-        }
+        } 
       }else{
         // response.send('Incorrect Email Address')
         request.session.wUsr = true;

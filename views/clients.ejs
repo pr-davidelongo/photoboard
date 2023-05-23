@@ -152,12 +152,12 @@ Coded by www.xxxxxx.com
                 <a class="btn btn-primary btn-act" id="btn-new-client" disabled>NEW</a>
                 <a class="btn btn-primary btn-act" id="btn-del-client">REMOVE</a>
               </div>
-            </div>
+            </div> 
           </div>
           <div class="col-md-8">
 
-            <!-- START Form Client -->
-            <div class="card" id="form-info-client">
+            <!-- START Form activity -->
+            <div class="card" id="form-info-activity">
               <div class="card-body"><p class="card-category">Activity Info</p>
                 <form action="clients/new" enctype="multipart/form-data" method="POST">
                   <div class="row">
@@ -311,11 +311,8 @@ Coded by www.xxxxxx.com
   <script src="../assets/js/pages/cs-clients.js"></script>
   
   <script>
-    $(document).ready(function() {
-      let msg = '<%= session.msg %>';
-      console.log(msg);
-      if( msg != '' ){  alert(msg) }
-    });
+    $(document).ready(function() {let msg = '<%= session.msg %>';if( msg != '' ){  
+      $('#form-info-activity .card-body').append(`<a><b><span style="color:#51bcda;">${msg}</span></b></a>`);}});
   </script>
 </body>
 

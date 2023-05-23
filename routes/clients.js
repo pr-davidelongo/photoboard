@@ -17,8 +17,6 @@ router.get('/', function(req, res, next) {
   req.session.msg = msg;
   if (req.session.usr_id >0){
     res.render('clients', { title: 'Clients - PhotoBoard', session : req.session });
-
-    console.log(req.session.msg)
   }else{
     res.redirect("/login");
   }
@@ -75,29 +73,26 @@ router.post('/new', function(req, res, next){
     // controllo che il file caricato sia tra quelli riconosciuti
     if (mimeType == "png" || mimeType == "jpg" || mimeType == "jpeg" || mimeType == "pdf") {
       fs.mkdir(filePath, (err) => { // controllo se esiste già la cartella dell'anno corrente, se no la creo
-        if (err) {
-          return console.error(err);
-        }
+        if ( err ) throw err;
       });
       // copio e rinomino il file temporaneo nella cartella contracts
       fs.copyFile(tempFilePath, filePath+fileName.toLowerCase(), 0, (err) => {
         if ( err ) throw err;
         console.log('Copia eseguita con succcesso');
-      });
-      // elimino il file temporaneo
-      fs.unlink(tempFilePath, function(err) {
-        if (err) throw err;
-        console.log('File tmp rimosso con successo');
+        // elimino il file temporaneo
+        fs.unlink(tempFilePath, function(err) {
+          if (err) throw err;
+          console.log('File tmp rimosso con successo');
+        });
       });
     } else {
-
       addActivityOnDB = false;
       // elimino il file temporaneo
       fs.unlink(tempFilePath, function(err) {
         if (err) throw err;
         console.log('File tmp rimosso con successo');
       });
-      msg = "Estensione FILE non supportata ! Puoi caricare solo: PNG, JPG, PDF.";
+      msg = "Puoi caricare solo: PNG, JPG, PDF.";
       res.redirect(`/clients?msg=${msg}`);
     }
   }

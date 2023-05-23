@@ -1,28 +1,27 @@
 
 
 const html_formNewActivity = `
-<div class="card" id="form-info-client">
-  <div class="card-body"><p class="card-category">Activity Info</p>
-    <form action="clients/new" enctype="multipart/form-data" method="POST">
-      <div class="row">
-        <div class="col-sm-6" hidden><input type="number" name="ph_id" class="form-control" value="<%= session.usr_id %>"/></div>
-        <div class="col-sm-6"><label for="text">Name</label><input type="text" name="name" placeholder="name" class="form-control" required/></div>
-        <div class="col-sm-6"><label for="text">Surname</label><input type="text" name="surname" placeholder="surname" class="form-control" required/></div>
+
+<div class="card-body"><p class="card-category">Activity Info</p>
+  <form action="clients/new" enctype="multipart/form-data" method="POST">
+    <div class="row">
+      <div class="col-sm-6" hidden><input type="number" name="ph_id" class="form-control" value="<%= session.usr_id %>"/></div>
+      <div class="col-sm-6"><label for="text">Name</label><input type="text" name="name" placeholder="name" class="form-control" required/></div>
+      <div class="col-sm-6"><label for="text">Surname</label><input type="text" name="surname" placeholder="surname" class="form-control" required/></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6"><label for="email">e-Mail</label><input type="email" name="email" placeholder="email" class="form-control" required/></div>
+      <div class="col-sm-6"><label for="tel">Phone</label><input type="tel" name="tel" placeholder="phone" class="form-control" required/></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6"><label for="text">Client Psw</label><input type="text" name="client_psw" placeholder="client password" class="form-control" required/></div>
+      <div class="col-sm-6"><label for="date">Event Date</label><input type="date" name="event_date" placeholder="event date" class="form-control" required/></div>
       </div>
-      <div class="row">
-        <div class="col-sm-6"><label for="email">e-Mail</label><input type="email" name="email" placeholder="email" class="form-control" required/></div>
-        <div class="col-sm-6"><label for="tel">Phone</label><input type="tel" name="tel" placeholder="phone" class="form-control" required/></div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6"><label for="text">Client Psw</label><input type="text" name="client_psw" placeholder="client password" class="form-control" required/></div>
-        <div class="col-sm-6"><label for="date">Event Date</label><input type="date" name="event_date" placeholder="event date" class="form-control" required/></div>
-        </div>
-      <div class="row">
-        <div class="col-sm-12"><label for="file">Contract</label><input type="file" id="contract" name="contract" placeholder="contract.pdf" class="form-control"/></div>
-        <div class="col-sm-12"><input type="submit" class="btn btn-primary btn-act" value="ADD ACTIVITY"/></div>
-      </div>
-    </form>
-  </div>
+    <div class="row">
+      <div class="col-sm-12"><label for="file">Contract</label><input type="file" id="contract" name="contract" placeholder="contract.pdf" class="form-control"/></div>
+      <div class="col-sm-12"><input type="submit" class="btn btn-primary btn-act" value="ADD ACTIVITY"/></div>
+    </div>
+  </form>
 </div>`
 const html_formRemoveActivity = `
 <div class="card-body"><p class="card-category">Remove client</p>
@@ -80,26 +79,25 @@ function get_tblClients(){
   })
 }
 
-function put_newClient(){
-  let inputs = $("#form-info-client .card-body").find("input");
-  console.log(inputs)
-  $.ajax({
-    url: urlServer+`clients/new?ph_id=${sUsr_id}
-    &name=${inputs[0].value}
-    &surname=${inputs[1].value}
-    &email=${inputs[2].value}
-    &tel=${inputs[3].value}
-    &psw=${inputs[5].value}`,
-    type:'GET',
-    caches: false,
-    // dataType:'JSON',
-    success: function(data){
-      if (data) {
-        console.log(data)
-        // $('#form-info-client').html(html_formNewClient);
-      }
-    }
-  })
+
+
+function get_contract(cName) {
+  
+
+
+
+
+
+}
+
+
+
+
+function get_gallery(params) {
+  
+}
+function get_album(params) {
+  
 }
 
 
@@ -110,16 +108,14 @@ $(document).ready(function() {
   get_tblClients();
   
   $('#btn-new-client').click(()=>{
-    console.log("pippo click")
     $('#btn-new-client').attr("disabled", "disabled");
     $('#btn-del-client').removeAttr('disabled');
-    $('#form-info-client').html(html_formNewActivity);
+    $('#form-info-activity').html(html_formNewActivity);
   })
   $('#btn-del-client').click(()=>{
-    console.log("pippo click")
     $('#btn-del-client').attr("disabled", "disabled");
     $('#btn-new-client').removeAttr('disabled');
-    $('#form-info-client').html(html_formRemoveActivity);
+    $('#form-info-activity').html(html_formRemoveActivity);
   })
 
 });
